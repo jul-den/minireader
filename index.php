@@ -7,7 +7,6 @@
         <?php
         if ($storyData) echo $storyData["title"];
         if(isset($thisChapter["headline"])) echo ": " . $thisChapter["headline"];
-        if($storyIsEnumerated && isset($thisCStr)) echo $thisCStr;
     ?></title>
     <meta
         name="description"
@@ -17,7 +16,7 @@
     <link href='https://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <script src="https://circlejourney.net/resources/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?<?php echo filemtime("style.css"); ?>">
 
     <script>
         const storyID = location.search.match(/\&?story=([\w-]+)/)[1];
@@ -71,13 +70,16 @@
         <div class="links">
             <a href="/read">All stories</a>
             &bull;
-            <?php
-            if($storyData["homepage"]) {
-                echo "<a href='{$storyData["homepage"]}'>{$storyData["title"]} homepage</a> &bull;";
-            }?>
+            <?php if($storyData && $storyData["homepage"]): ?>
+                <a href='<?php echo $storyData["homepage"]; ?>'>
+                    <?php echo $storyData["title"] ?> homepage
+                </a> &bull;
+            <?php endif; ?>
             <a href="#" onclick="toggleDark()">Toggle black/white</a>
         </div>
         
+        
+        <?php if($storyData): ?>
         <div id="main">
             <div class="nav-bar">
                 <?php if ($lastCInt > 1 && $storyData && $storyID && sizeof($chaptersReturned)): ?>
@@ -119,7 +121,7 @@
             <div class="story-container">
                 <?php if($_GET["story"] && !$storyData): ?>
                     <div class='center'>Story not found!</div>
-                <?php elseif(count($chaptersReturned)): ?>
+                <?php elseif($chaptersReturned && count($chaptersReturned)): ?>
                     <?php $chapter_exists = true; ?>
                     <h1><?php echo $storyData["title"] ?></h1>
                     <?php foreach ($chaptersReturned as $chapternumber => $content): ?>
@@ -134,7 +136,7 @@
             <?php if ($chapter_exists): ?>
 
             <hr>
-            <div id="disqus_thread"></div>
+            
             <script>
                  // The code below is an example. Get the embed code from Disqus' website and paste it here.
                 var disqus_config = function() {
@@ -157,6 +159,7 @@
             <?php endif ?>
             
         </div>
+        <?php endif; ?>
 
     </div>
 

@@ -1,8 +1,8 @@
 <?php
-    error_reporting(0);
     $sep = DIRECTORY_SEPARATOR;
     
     function jsonFileToArray($filepath){
+        if(!file_exists($filepath)) return false;
         return json_decode( file_get_contents( $filepath ), true );
     }
     
@@ -11,8 +11,8 @@
     if($storyData = jsonFileToArray( $storyID . $sep . "story.json" )) {
         
         $thisCStr = isset($_GET["c"]) ? $_GET["c"] : "1";
-        if(!$storyData['chapterNomenclature']) $storyData['chapterNomenclature'] = "Chapter";
-        $storyIsEnumerated = ($storyData["enumerated"] || !isset($storyData["enumerated"]));
+        if(!isset($storyData['chapterNomenclature'])) $storyData['chapterNomenclature'] = "Chapter";
+        $storyIsEnumerated = (!isset($storyData["enumerated"]) || $storyData["enumerated"]);
         $lastCInt = count( $storyData["chapters"] );
         $chaptersReturned = array();
         

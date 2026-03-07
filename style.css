@@ -1,4 +1,3 @@
-
 body {
     color: #333;
     font-family: "Droid Sans", sans-serif;
@@ -100,6 +99,7 @@ a.nav-button:visited {
 }
 
 .chapselect {
+    max-width: 100%;
     padding: 10px;
 }
 
@@ -121,7 +121,8 @@ a.nav-button:visited {
     color: #eee;
 }
 
-#container.dark a.nav-button {
+#container.dark a.nav-button,
+#container.dark blockquote {
     color: black;
 }
 

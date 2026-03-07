@@ -142,10 +142,3 @@ a.nav-button:visited {
         margin-top: 128px;
     }
 }
-
-@media print {
-    .page-break {
-        display: block;
-        page-break-before: always;
-    }
-}

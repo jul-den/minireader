@@ -3,6 +3,7 @@
     "storyID": "one-chapter-example",
     "chapterNomenclature": "Story",
     "enumerated": false,
+    "description": "This is an example of a one-chapter story.",
     "chapters": [
         {
             "title": ""

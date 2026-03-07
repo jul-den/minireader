@@ -22,6 +22,7 @@ To view a preview, install [XAMPP](https://www.apachefriends.org/) and add the `
 - `"homepage": "https://story.website.com/"`: A URL for readers to find out more about the story (optional).
 - `"enumerated": true|false`: Whether the chapters should be displayed with numbers and nomenclature in their titles (optional). Defaults to true if unspecified. If set to false, all chapters titles will be displayed without the "Chapter X:" label in front.
 - `"chapterNomenclature": "Chapter"`: The terminology used for chapters. Can be useful if you want the chapters to be called "episodes", for example. Defaults to "Chapter" if unspecified.
+- `"description": "description of story"`: A description of the story for the website's meta description.
 - `"chapters": [ ... ]`: Array of chapter objects. The web app can only "see" chapters that are added here, so HTML files that don't have a corresponding chapter object added here cannot be accessed. Chapter object properties:
   - `"title": "Chapter Title"`: Title of the chapter
   - `"enumerated": true|false`: Whether the chapter should be displayed with a number and nomenclature in its title (optional). Defaults to true. If set to false, the chapter title will be displayed without the "Chapter X:" label in front.

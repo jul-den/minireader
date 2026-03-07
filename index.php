@@ -4,12 +4,14 @@
 
 <head>
     <title>
-        MiniReader<?php
-        if($storyData) echo " - " . $storyData["title"];
+        <?php
+        if ($storyData) echo $storyData["title"];
         if(isset($thisChapter["headline"])) echo ": " . $thisChapter["headline"];
         if($storyIsEnumerated && isset($thisCStr)) echo $thisCStr;
     ?></title>
-    <meta name="description" content="A reading app for novels, novellas and short stories.">
+    <meta
+        name="description"
+        content="<?php echo isset($storyData["description"]) ? $storyData["description"] : "A reading app for novels, novellas and short stories." ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='https://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>

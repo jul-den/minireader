@@ -4,6 +4,7 @@
     "homepage": "https://circlejourney.net/offshore",
     "chapterNomenclature": "Episode",
     "enumerated": true,
+    "description": "This is an example of a multi-chapter story with prologue and epilogue.",
     "chapters": [
         {
             "title": "Prologue",

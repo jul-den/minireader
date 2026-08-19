@@ -1,0 +1,32 @@
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  AddEncoding gzip .gzip
+
+  # Перенаправляем запросы к картинкам (jpg, jpeg, png, gif, webp)
+  # Если файл физически не существует на диске — передаём управление index.php
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^img/([^/]+)/([^/]+)\.(jpg|jpeg|png|gif|webp)$ index.php?story=$1&image=$2.$3 [L,QSA]
+
+</IfModule>
+
+<IfModule mod_php.c>
+    php_flag session.auto_start 0
+    php_flag session.use_cookies 0
+    php_flag session.use_only_cookies 0
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag session.auto_start 0
+    php_flag session.use_cookies 0
+    php_flag session.use_only_cookies 0
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag session.auto_start 0
+    php_flag session.use_cookies 0
+    php_flag session.use_only_cookies 0
+</IfModule>
+
+DirectoryIndex index.php
+#DirectoryIndex 

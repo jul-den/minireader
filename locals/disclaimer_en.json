@@ -1,0 +1,28 @@
+{
+    "fictional": {
+        "show": true,
+        "title": "📖 Fictional Work",
+        "text": "All characters, events and geographical names in this work are entirely fictional. Any resemblance to real persons, living or dead, organizations or events is coincidental and unintentional."
+    },
+    "ai_generated": {
+        "title": "🤖 AI-Generated Content",
+        "text": "This text was generated using a large language model (LLM). The original prompt is provided below. The final edited version of the text is presented below."
+    },
+    "content_warning": {
+        "title": "⚠️ Content Warning",
+        "text": "This story may contain scenes of violence, cruelty or other themes not recommended for minors. These elements are part of the artistic concept and are not propaganda. If you are not comfortable with such content, please refrain from reading."
+    },
+    "owner_responsibility": {
+        "show": true,
+        "title": "⚖️ Disclaimer",
+        "text": "The site administration and large language models (LLMs) are not responsible for any subjective perception, emotional reaction, or any actions taken by readers based on what they have read. The content is provided 'as is' (AS IS), solely for entertainment and/or artistic and educational purposes."
+    },
+    "author_responsibility": {
+        "title": "⚖️ Author Responsibility",
+        "text": "The author (human) bears full responsibility for the final content, verification and editing of the generated material. Large language models (LLMs) cannot be held responsible for possible interpretations."
+    },
+    "prompt": {
+        "title": "📋 Original Prompt",
+        "text": ""
+    }
+}

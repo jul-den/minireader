@@ -1,0 +1,16 @@
+<?php
+define('LOCAL_LANG', 'en');
+define('LOCAL_APP_DESCRIPTION', 'A reading app for novels, novellas and short stories.');
+define('LOCAL_CHOOSE_A_STORY', 'Choose a story to read');
+define('LOCAL_ALL_STORIES', 'All stories');
+define('LOCAL_MORE_INFO', 'More info');
+define('LOCAL_STORY_WEBSITE', 'Visit story website');
+define('LOCAL_TOGGLE_BW', 'Toggle black/white');
+define('LOCAL_FIRST', 'First');
+define('LOCAL_PREVIOUS', 'Previous');
+define('LOCAL_NEXT', 'Next');
+define('LOCAL_LAST', 'Last');
+define('LOCAL_ALL_CHAPTERS', 'All chapters');
+define('LOCAL_CHAPTER_GO_TO', '— Go to —');
+define('LOCAL_STORY_NOT_FOUND', 'Story not found');
+define('LOCAL_CHAPTER_NOT_EXIST', 'Chapter doesn\'t exist!');

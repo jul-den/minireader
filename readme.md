@@ -1,28 +1,189 @@
-# MiniReader: A minimal(ish) templater for self-publishing a collection of stories.
-A PHP templater for self-publishing a collection of stories. It generates a listing of all stories in the gallery that can be viewed at the reader's homepage. It supports single-chaptered and multi-chaptered works, as well as alternate chapter naming (e.g. naming chapters as "Episodes").
+# MiniReader: минималистичный (но не слишком) шаблонизатор для самостоятельной публикации сборников рассказов
 
-The entire MiniReader directory can be uploaded as-is to a web host and it should run out of the box. Two examples are included to demonstrate folder and `story.json` structure. A live example can be viewed at [circlejourney.net/read](https://circlejourney.net/read).
+> **Примечание:** Это форк оригинального [MiniReader](https://github.com/circlejourney/MiniReader) с добавленными возможностями: система дисклеймеров, поддержка нескольких языков (локализация) и обработка изображений.
 
-# Quick start
-To add a story to the collection, add a sub-folder with a unique name with no spaces. To this folder, upload the contents of individual chapters (without titles) as numbered HTML files, e.g. `1.html`, `2.html`, `3.html`... Finally, upload a `story.json` file to the same folder (details on how to format it are below).
+PHP-шаблонизатор для самостоятельной публикации сборников рассказов. Он формирует список всех историй в галерее, который можно просматривать на главной странице. Поддерживает как одноглавные, так и многоглавные произведения, а также возможность переименовывать главы (например, называть их «Эпизодами»).
 
-To view a preview, install [XAMPP](https://www.apachefriends.org/) and add the `php` sub-directory from the install folder to your PATH variable. After that, start a PHP server by running the command `php -S localhost:8000` inside the MiniReader directory, and you can view the MiniReader inside your browser at the URL `localhost:8000`.
+Весь каталог MiniReader можно загрузить на хостинг как есть, и он должен работать сразу. В комплекте идут два примера, демонстрирующие структуру папок и файла `story.json`. Живой пример можно посмотреть по адресу [circlejourney.net/read](https://circlejourney.net/read).
 
-# Files
-`index.php` is the reader. Add a search query i.e. `?story=<story-ID>&c=<chapter-number>` to the URL to fetch specific stories and chapters.
+# Быстрый старт
 
-`getstory.php` is a helper that scans directories, filters for selected chapters, and retrieves story/chapter content and metadata.
+Чтобы добавить историю в коллекцию, создайте подпапку в папке `stories` с уникальным именем без пробелов. В эту папку загрузите содержимое отдельных глав (без заголовков) в виде пронумерованных HTML-файлов, например `1.html`, `2.html`, `3.html`... Затем загрузите в эту же папку файл `story.json` (подробности о его форматировании приведены ниже).
 
-`style.css` contains all the styling for the story. It includes a `.dark` class that is responsible for setting all dark mode styling.
+Структура каталогов должна выглядеть так:
+
+```
+/
+├── disclaimer.php
+├── getimg.php
+├── getstory.php
+├── minireader.php
+public/
+├── index.php          # Главная точка входа
+├── .htaccess          # Перенаправление запросов к изображениям
+├── css/
+│   ├── style.css      # Основные стили
+│   └── style_ai.css   # Стили для ИИ-функций (дисклеймер и пр.)
+├── js/
+│   ├── jquery-3.3.1.min.js
+│   └── lightbox.js    # Лайтбокс для изображений
+stories/
+├── your-story-id/
+│   ├── story.json
+│   ├── 1.html
+│   ├── 2.html
+│   └── image.jpg      # Можно ссылаться в HTML
+locals/
+├── en.php             # Английские переводы
+├── ru.php             # Русские переводы
+├── disclaimer_en.json # Английская база дисклеймеров
+└── disclaimer_ru.json # Русская база дисклеймеров
+```
+
+Чтобы просмотреть результат локально, установите [XAMPP](https://www.apachefriends.org/) и добавьте подкаталог `php` из папки установки в переменную PATH. После этого запустите PHP-сервер командой `php -S localhost:8000` внутри каталога MiniReader, и вы сможете открыть MiniReader в браузере по адресу `localhost:8000`.
+
+> **Примечание:** Веб-сервер должен быть настроен так, чтобы корневой папкой (document root) была папка `public/`. Входящий в комплект файл `.htaccess` обрабатывает перезапись URL для изображений.
+
+# Файлы
+
+`public/index.php` — главная точка входа. Она определяет язык пользователя и загружает соответствующие файлы перевода, затем подключает `minireader.php` (основной файл MiniReader).
+
+`minireader.php` — основной файл minireader. Добавьте параметры запроса, например `?story=<ID-истории>&c=<номер-главы>`, чтобы получить конкретные истории и главы.
+
+`getstory.php` — вспомогательный скрипт, который сканирует каталоги, фильтрует выбранные главы и извлекает содержимое и метаданные истории/главы.
+
+`disclaimer.php` — загружает базу дисклеймеров из `locals/disclaimer_{lang}.json`, объединяет переопределения на уровне истории и главы из `story.json` и возвращает финальные секции дисклеймера для отображения.
+
+`getimg.php` — обрабатывает запросы к изображениям для иллюстраций историй. Когда в HTML ссылаются на изображение как `/img/story-id/image.jpg`, файл `public/.htaccess` перенаправляет запрос в `public/index.php`, который отдаёт соответствующее изображение из папки `stories/your-story-id/`.
+
+`public/css/style.css` — содержит все базовые стили для истории. Включает класс `.dark`, отвечающий за оформление тёмной темы.
+
+`public/css/style_ai.css` — содержит стили, специфичные для функций ИИ, включая оформление блоков дисклеймера.
+
+`public/.htaccess` — перенаправляет запросы к изображениям (jpg, jpeg, png, gif, webp), позволяя использовать в HTML ссылки вида `<img src="/img/story-id/image.jpg">`.
 
 # story.json
-`story.json` contains all metadata for the story in that folder.
-- `"title": "Your Story Title"`: The display title that is shown in the HTML page title and the story header (required).
-- `"storyID": "your-story-id"`: Unique story ID, containing letters, numbers, hyphens and underscores. This should be the same as the folder name (required).
-- `"homepage": "https://story.website.com/"`: A URL for readers to find out more about the story (optional).
-- `"enumerated": true|false`: Whether the chapters should be displayed with numbers and nomenclature in their titles (optional). Defaults to true if unspecified. If set to false, all chapters titles will be displayed without the "Chapter X:" label in front.
-- `"chapterNomenclature": "Chapter"`: The terminology used for chapters. Can be useful if you want the chapters to be called "episodes", for example. Defaults to "Chapter" if unspecified.
-- `"description": "description of story"`: [Optional] A description of the story for the website's meta description.
-- `"chapters": [ ... ]`: Array of chapter objects. The web app can only "see" chapters that are added here, so HTML files that don't have a corresponding chapter object added here cannot be accessed. Chapter object properties:
-  - `"title": "Chapter Title"`: Title of the chapter
-  - `"enumerated": true|false`: Whether the chapter should be displayed with a number and nomenclature in its title (optional). Defaults to true. If set to false, the chapter title will be displayed without the "Chapter X:" label in front.
+
+`story.json` содержит все метаданные для истории в этой папке.
+
+- `"title": "Название вашей истории"` — (обязательно) отображаемое название, которое показывается в заголовке HTML-страницы и в шапке истории.
+- `"storyID": "your-story-id"` — (обязательно) уникальный идентификатор истории, содержащий буквы, цифры, дефисы и подчёркивания. Должен совпадать с именем папки.
+- `"homepage": "https://story.website.com/"` — (опционально) URL, по которому читатели могут узнать больше об истории.
+- `"enumerated": true|false` — (опционально) нужно ли отображать главы с номерами и названием в заголовках. По умолчанию `true`. Если установить `false`, все заголовки глав будут отображаться без префикса «Глава X:».
+- `"chapterNomenclature": "Chapter"` — термин, используемый для глав. Может пригодиться, если вы хотите называть главы, например, «эпизодами». По умолчанию «Chapter».
+- `"description": "описание истории"` — (опционально) описание истории для мета-тега description сайта.
+- **(НОВОЕ)** `"disclaimer": ...` — (опционально) переопределение дисклеймера на уровне истории (см. раздел «Система дисклеймеров» ниже).
+- `"chapters": [ ... ]` — массив объектов глав. Веб-приложение может «видеть» только те главы, которые добавлены сюда, поэтому HTML-файлы, для которых нет соответствующего объекта главы, недоступны. Свойства объекта главы:
+  - `"title": "Название главы"` — заголовок главы.
+  - `"enumerated": true|false` — (опционально) нужно ли отображать эту главу с номером и названием в заголовке. По умолчанию `true`. Если `false`, заголовок главы отображается без префикса «Глава X:».
+  - **(НОВОЕ)** `"disclaimer": ...` — (опционально) переопределение дисклеймера на уровне главы (см. раздел «Система дисклеймеров» ниже).
+
+# Система дисклеймеров **(НОВОЕ)**
+
+Теперь MiniReader поддерживает гибкую систему дисклеймеров, настраиваемую как на уровне истории, так и на уровне главы.
+
+## Базовый файл дисклеймера
+
+Поместите или отредактируйте файл `disclaimer_{lang}.json` в папке `locals/` (например, `locals/disclaimer_en.json` для английского, `locals/disclaimer_ru.json` для русского). Файл определяет все доступные секции дисклеймера. Пример можно посмотреть в файле `locals/disclaimer_en.json`.
+
+## Дисклеймер на уровне истории
+
+Добавьте поле `disclaimer` в ваш `story.json`, чтобы настроить отображаемые секции:
+
+```json
+{
+    "title": "Ваша история",
+    "storyID": "your-story-id",
+    "disclaimer": {
+        "fictional": true,
+        "ai_generated": true,
+        "content_warning": true,
+        "author_responsibility": false,
+        "owner_responsibility": true,
+        "prompt": "Текст вашего полного промта...",
+        "custom_section_any_text": {
+            "title": "Уведомление",
+            "text": "Новая история с любовью."
+        }
+    },
+    "chapters": [ ... ]
+}
+```
+
+**Варианты настройки:**
+- `true` — использовать секцию так, как она определена в базовом файле дисклеймера.
+- `false` — скрыть эту секцию.
+- `{ "title": "...", "text": "..." }` — переопределить заголовок и/или текст секции.
+
+## Дисклеймер на уровне главы
+
+Вы можете переопределить дисклеймер для конкретной главы, добавив поле `disclaimer` в объект главы:
+
+```json
+{
+    "chapters": [
+        {
+            "title": "Пролог",
+            "enumerated": false,
+            "disclaimer": false
+        },
+        {
+            "title": "Глава 1",
+            "disclaimer": {
+                "content_warning": false,
+                "prompt": "Специфический промт для этой главы..."
+            }
+        },
+        {
+            "title": "Глава 2",
+            "disclaimer": {
+                "ai_generated": {
+                    "title": "🧠 Сгенерировано Claude",
+                    "text": "Эта глава создана с помощью Claude 3.5 Sonnet."
+                },
+                "custom_section_any_text": {
+                    "title": "Уведомление",
+                    "text": "Эта глава написана с помощью Claude 3.5 Sonnet."
+                }
+            }
+        },
+        {
+            "title": "Эпилог",
+            "enumerated": false
+        }
+    ]
+}
+```
+
+**Приоритет дисклеймера на уровне главы:**
+1. Если `disclaimer` главы равен `false`, дисклеймер полностью скрывается для этой главы.
+2. Если `disclaimer` главы является массивом/объектом, он объединяется с дисклеймером истории (значения главы имеют приоритет над значениями истории).
+3. Если дисклеймер главы не указан, используется дисклеймер истории.
+
+## Загрузка дисклеймеров
+
+Система автоматически загружает файл языка, соответствующий настройкам браузера пользователя. Доступные языки и язык по умолчанию определяются в `public/index.php`.
+
+# Изображения
+
+Истории могут содержать изображения. Поместите изображения в папку `stories/your-story-id/image_name.jpg` и ссылайтесь на них в HTML так:
+
+```html
+<img src="/img/your-story-id/image_name.jpg" alt="Описание">
+<img class="profile-thumb" src="/img/your-story-id/image_name.jpg" alt="с лайтбоксом">
+```
+
+Файл `.htaccess` в папке `public/` обрабатывает маршрутизацию этих запросов. Изображения можно открывать в лайтбоксе с помощью входящего в комплект `lightbox.js`, добавив класс `profile-thumb` к тегу `<img>`.
+
+# Локализация
+
+Система автоматически определяет предпочтительный язык пользователя по настройкам браузера и загружает соответствующие файлы перевода из папки `locals/`.
+
+Доступные языки настраиваются в `public/index.php`. Если язык пользователя недоступен, используется язык по умолчанию (первый в списке).
+
+Каждый языковой файл (`locals/xx.php`) определяет строки перевода. Полный пример см. в файле `locals/en.php`.
+
+Чтобы добавить новый язык:
+1. Создайте (или скопируйте существующий) файл `locals/yourlang.php` со строками перевода.
+2. Создайте (или скопируйте существующий) файл `locals/disclaimer_yourlang.json` с секциями дисклеймера на этом языке.
+3. Добавьте код языка в массив доступных языков в `public/index.php`.

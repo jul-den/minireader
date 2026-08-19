@@ -143,3 +143,8 @@ a.nav-button:visited {
         margin-top: 128px;
     }
 }
+
+div.story-container p {
+    text-align: justify;
+    text-indent: 2em;
+}

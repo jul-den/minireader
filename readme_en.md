@@ -1,3 +1,11 @@
+# 🙏 Acknowledgments
+
+This project is a fork of the original [MiniReader](https://github.com/circlejourney/MiniReader) by [circlejourney](https://github.com/circlejourney). Many thanks to the original author for creating such a clean and useful tool!
+
+> **Русская версия:** [README.md](README.md)
+
+---
+
 # MiniReader: A minimal(ish) templater for self-publishing a collection of stories
 
 > **Note:** This is a fork of the original [MiniReader](https://github.com/circlejourney/MiniReader) with added features: disclaimer system, multilingual support (localization), and image handling.
@@ -189,3 +197,4 @@ To create a new language:
 1. Create (or copy an existing file) `locals/yourlang.php` with translation strings
 2. Create (or copy an existing file) `locals/disclaimer_yourlang.json` with the disclaimer sections in that language
 3. Add the language code to the available languages array in `public/index.php`
+

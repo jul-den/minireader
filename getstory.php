@@ -3,15 +3,19 @@ $sep = DIRECTORY_SEPARATOR;
 $StorysData = [];
 
 function getStoryJson($storyID){
-    $filepath = __DIR__.DIRECTORY_SEPARATOR.'stories'.DIRECTORY_SEPARATOR.$storyID.DIRECTORY_SEPARATOR.'story.json';
-    if(!file_exists($filepath)) return false;
-    return json_decode( file_get_contents( $filepath ), true );
+    $filepath = __DIR__.DIRECTORY_SEPARATOR.'stories'.DIRECTORY_SEPARATOR.$storyID.DIRECTORY_SEPARATOR;
+    $fname = 'story_'.LOCAL_LANG.'.json';
+    if (!file_exists($filepath.$fname)) $fname = false;
+    if ($fname === false && file_exists($filepath.'story.json')) $fname = 'story.json';
+    return ($fname === false)? $fname : json_decode( file_get_contents( $filepath.$fname ), true );
 }
 
 function getStoryContent($storyID, $chapter = 1) {
-    $filepath = __DIR__.DIRECTORY_SEPARATOR.'stories'.DIRECTORY_SEPARATOR.$storyID.DIRECTORY_SEPARATOR.$chapter.'.html';
-    if(!file_exists($filepath)) return '';
-	return file_get_contents( $filepath );
+    $filepath = __DIR__.DIRECTORY_SEPARATOR.'stories'.DIRECTORY_SEPARATOR.$storyID.DIRECTORY_SEPARATOR;
+    $fname = $chapter.'_'.LOCAL_LANG.'.html';
+    if (!file_exists($filepath.$fname)) $fname = false;
+    if ($fname === false && file_exists($filepath.$chapter.'.html')) $fname = $chapter.'.html';
+    return ($fname === false)? '' : file_get_contents( $filepath.$fname );
 }
 
 $storyID = isset($_GET["story"]) ? $_GET["story"] : false;
@@ -61,7 +65,8 @@ if($storyID && ($storyData = getStoryJson($storyID))) {
 if (is_dir(__DIR__.DIRECTORY_SEPARATOR.'stories'))
 	foreach (scandir(__DIR__.DIRECTORY_SEPARATOR.'stories') as $_storyID) {
 		$dir = __DIR__.DIRECTORY_SEPARATOR.'stories'.DIRECTORY_SEPARATOR.$_storyID;
-		if (!is_dir($dir) || !file_exists($dir.'/story.json')) continue;
+		if (!is_dir($dir)) continue;
+		if (!file_exists($dir.DIRECTORY_SEPARATOR.'story.json') && !file_exists($dir.DIRECTORY_SEPARATOR.'story_'.LOCAL_LANG.'.json')) continue;
 		$StorysData[$_storyID] = getStoryJson($_storyID);
 	}
 unset($_storyID);

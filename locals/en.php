@@ -14,3 +14,7 @@ define('LOCAL_ALL_CHAPTERS', 'All chapters');
 define('LOCAL_CHAPTER_GO_TO', '— Go to —');
 define('LOCAL_STORY_NOT_FOUND', 'Story not found');
 define('LOCAL_CHAPTER_NOT_EXIST', 'Chapter doesn\'t exist!');
+define('LOCAL_FONT_DECREASE', 'Decrease font size');
+define('LOCAL_FONT_INCREASE', 'Increase font size');
+define('LOCAL_FONT_DECREASE_TXT', 'A-');
+define('LOCAL_FONT_INCREASE_TXT', 'A+');

@@ -14,3 +14,7 @@ define('LOCAL_ALL_CHAPTERS', 'Все сразу');
 define('LOCAL_CHAPTER_GO_TO', '— Перейти к главе —');
 define('LOCAL_STORY_NOT_FOUND', 'Рассказ не найден');
 define('LOCAL_CHAPTER_NOT_EXIST', 'Глава не найдена!');
+define('LOCAL_FONT_DECREASE', 'Уменьшить шрифт');
+define('LOCAL_FONT_INCREASE', 'Увеличить шрифт');
+define('LOCAL_FONT_DECREASE_TXT', 'A-');
+define('LOCAL_FONT_INCREASE_TXT', 'A+');

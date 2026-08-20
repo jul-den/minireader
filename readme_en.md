@@ -198,3 +198,32 @@ To create a new language:
 2. Create (or copy an existing file) `locals/disclaimer_yourlang.json` with the disclaimer sections in that language
 3. Add the language code to the available languages array in `public/index.php`
 
+# Story File Localization **(NEW)**
+
+MiniReader now supports localization not only for the interface but also for story content at the file level.
+
+## Story Files
+
+When scanning the `stories/` folder, the system first looks for `story_{current_language}.json`. If not found, it falls back to the standard `story.json`. This allows you to localize story metadata (title, description) without duplicating the structure.
+
+**Example:**
+- `stories/my-story/story.json` — description in the default language (e.g., English)
+- `stories/my-story/story_ru.json` — description in Russian (if present)
+
+## Chapters
+
+The same works for chapter files. When requesting a chapter, the system first tries to read `{number}_{current_language}.html`, and if missing, falls back to the standard `{number}.html`.
+
+**Example:**
+- `stories/my-story/1.html` — chapter in the default language
+- `stories/my-story/1_ru.html` — Russian translation of the same chapter
+
+This allows you to translate both metadata and story content independently of each other.
+
+## Language Indicator
+
+The interface now displays a flag icon next to the theme switcher, indicating the current language. It is loaded via the [flag-icons](https://github.com/lipis/flag-icons) library and automatically shows the flag for the current language.
+
+## Future Plans
+
+In upcoming versions, we plan to add an **interactive language switcher**, allowing users to manually select the interface and content language regardless of their browser settings.

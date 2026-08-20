@@ -1,8 +1,8 @@
 <?php
 
-if (session_status() === PHP_SESSION_ACTIVE) {
-    session_destroy(); // или просто session_write_close();
-}
+if (session_status() === PHP_SESSION_ACTIVE)
+    session_destroy(); // session_write_close();
+
 ini_set('session.auto_start', 0);
 ini_set('session.use_cookies', 0);
 ini_set('session.use_only_cookies', 0);
@@ -14,16 +14,10 @@ function getlang() {
 	$preferred = ($preferred)? explode(',', $preferred) : [];
 
 	foreach ($preferred as $lang) {
-		// Проверяем точное совпадение или совпадение по первому сегменту (ru-RU → ru)
 		$lang = trim($lang);
-		// Отсекаем параметр качества (;q=...)
-		if (($pos = strpos($lang, ';')) !== false) {
+		if (($pos = strpos($lang, ';')) !== false)
 			$lang = substr($lang, 0, $pos);
-		}
-		// Извлекаем базовый язык (например, из "ru-RU" получаем "ru")
 		$base = explode('-', $lang)[0];
-
-		// Проверяем: точное совпадение или совпадение базового
 		if (in_array($lang, $supported)) {
 			$chosen = $lang;
 			break;
@@ -32,7 +26,6 @@ function getlang() {
 			break;
 		}
 	}
-
 	return '../locals/'.$chosen.'.php';
 }
 

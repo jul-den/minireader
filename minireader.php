@@ -24,10 +24,11 @@ require_once "disclaimer.php";
     <script src="/js/lightbox.js"></script>
     <link rel="stylesheet" href="/css/style.css?<?= filemtime("css/style.css"); ?>">
     <link rel="stylesheet" href="/css/style_ai.css?<?= filemtime("css/style_ai.css"); ?>">
+    <link rel="stylesheet" href="/css/flag-icons.min.css?<?= filemtime("css/flag-icons.min.css"); ?>">
 
     <script>
         const storyID = (new URLSearchParams(location.search)).get('story') || '';
-        const thisCStr = (new URLSearchParams(location.search)).get('с') || '';
+        const thisCStr = (new URLSearchParams(location.search)).get('c') || '';
         let thisCInt = parseInt(thisCStr);
 
         $(document).ready(function() {
@@ -87,7 +88,6 @@ require_once "disclaimer.php";
                 </div>
             </div>
         <?php endif ?>
-        
         <div class="links">
             <a href="/"><?= LOCAL_ALL_STORIES ?></a>
             &bull;
@@ -97,9 +97,12 @@ require_once "disclaimer.php";
                 </a> &bull;
             <?php endif; ?>
             <a href="#" onclick="toggleDark()"><?= LOCAL_TOGGLE_BW ?></a>
+
+           <span class="fi fi-<?= LOCAL_LANG ?>"></span>
+
             <?php if(isset($storyData) && !empty($storyData)):
-            ?><button id="fontDec" title="Уменьшить шрифт">A-</button>
-            <button id="fontInc" title="Увеличить шрифт">A+</button><?php
+            ?><button id="fontDec" title="<?= LOCAL_FONT_DECREASE ?>"><?= LOCAL_FONT_DECREASE_TXT ?></button>
+            <button id="fontInc" title="<?= LOCAL_FONT_INCREASE ?>"><?= LOCAL_FONT_INCREASE_TXT ?></button><?php
             endif; ?>
         </div>
         
@@ -151,7 +154,6 @@ require_once "disclaimer.php";
 
             <div class="story-container">
                 <?php
-                    // <!-- ===== ДИСКЛЕЙМЕР ===== -->
                     if (isset($disclamerText)) echo $disclamerText;
 
                     if($_GET["story"] && !$storyData): ?>

@@ -8,6 +8,18 @@
         "title": "🤖 AI-Generated Content",
         "text": "This text was generated using a large language model (LLM). The original prompt is provided below. The final edited version of the text is presented below."
     },
+    "generation_purpose_pure": {
+        "title": "🎯 Generation goal",
+        "text": "<p><strong>This story</strong> is not just a creative exercise, but a public result of testing the capabilities of a large language model (LLM) in crafting a coherent, emotionally rich narrative within strict plot constraints.</p><p><strong>The test objective</strong>: to verify whether the LLM can maintain a given tone, follow instructions, sustain the plotline without narrative gaps, while avoiding pomposity or meaninglessness.</p>"
+    },
+    "generation_purpose_collaborative": {
+        "title": "🎯 Generation goal",
+        "text": "<p><strong>This story</strong> is not just a creative exercise, but a public result of testing the capabilities of a large language model (LLM) in crafting a coherent, emotionally rich narrative within strict plot constraints.</p><p><strong>The test objective</strong>: to verify whether the LLM can maintain a given tone, follow instructions, sustain the plotline without narrative gaps, while avoiding pomposity or meaninglessness.</p><p>An important part of the testing involved an interactive dialogue with the model: analyzing the generated text, identifying semantic and stylistic inaccuracies, and eliminating potentially ambiguous phrasing that could be interpreted in multiple ways. This stage allowed us to assess not only the model's generative capabilities, but also its readiness for dialogue, clarification, and self-correction.</p>"
+    },
+    "prompt": {
+        "title": "📋 Original Prompt",
+        "text": ""
+    },
     "content_warning": {
         "title": "⚠️ Content Warning",
         "text": "This story may contain scenes of violence, cruelty or other themes not recommended for minors. These elements are part of the artistic concept and are not propaganda. If you are not comfortable with such content, please refrain from reading."
@@ -20,9 +32,5 @@
     "author_responsibility": {
         "title": "⚖️ Author Responsibility",
         "text": "The author (human) bears full responsibility for the final content, verification and editing of the generated material. Large language models (LLMs) cannot be held responsible for possible interpretations."
-    },
-    "prompt": {
-        "title": "📋 Original Prompt",
-        "text": ""
     }
 }
